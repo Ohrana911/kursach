@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lombard</title>
+<!--    <link rel="stylesheet" type="text/css" href="style-product-info.css">-->
+</head>
+<body>
+<h1>Заключение</h1>
+<hr>
+<h4>Подробная инфa</h4>
+<b>Название товара: </b><span th:text="${product.title}"></span><br>
+<b>Описание товара: </b><span th:text="${product.description}"></span><br>
+<b>Вы хотите следующую цену: </b><span th:text="${product.price}"></span><br>
+<b>Если срок заказа: </b><span th:text="${product.period}"></span><br>
+<b>То мы готовы дать столько: </b><span th:text="${new_price}"></span><br>
+<hr>
+<form th:action="@{/product/delete/{id}(id=${product.id})}" method="post">
+    <input type="submit" value="Удалить товар"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cart</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            background-color: #f44336;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        .checkout-button {
+            background-color: #4CAF50;
+        }
+
+        .checkout-button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+<h1>Оформленные заемы</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Количество</th>
+        <th>Цена</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Для каждого товара в корзине -->
+    <th:block th:each="item : ${cart.items}">
+        <tr>
+            <!-- Отображение названия товара -->
+            <td th:text="${item.product.title}"></td>
+            <!-- Отображение количества товара -->
+            <td th:text="${item.quantity}"></td>
+            <!-- Отображение цены товара -->
+            <td th:text="${item.product.price}"></td>
+            <!-- Кнопка для удаления товара из корзины -->
+            <td>
+                <form th:action="@{/cart/remove}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.product.id}" />
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Расчёт суммы выплаты...</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><p>Вы должны будете выплатить: <span th:text="${cart.totalPrice}"></span></p></td>
+        <td th:if="${cart.totalPrice > 0}">
+<!--            <button type="submit">Оформить заказ</button>-->
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

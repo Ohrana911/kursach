@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lombard</title>
+    <link rel="stylesheet" type="text/css" href="products.css">
+</head>
+<body>
+<h1>GOOFY LOMBARDO</h1>
+<hr>
+<h3>Создайте заявление для рассмотрения залога на товар</h3>
+<form th:action="@{/product/create}" method="post" th:object="${product}">
+    Название объявления: <input type="text" name="title"/><br><br>
+    Описание объявления: <input type="text" name="description"/><br><br>
+    Цена: <input type="number" name="price"/><br><br>
+    Срок залога: <input type="number" name="period"/><br><br>
+    Документ удостоверяющий личность: <input type="text" name="author"/><br><br>
+    <input type="submit" value="Добавить товар"/>
+</form>
+<hr>
+<h4>Товары под залог</h4>
+<form th:action="@{/}" method="get" class="tovars">
+    Поиск: <input type="text" name="title"/><br><br>
+    <input type="submit" value="поиск" class="poisk-zalog"/>
+</form>
+<div th:each="product : ${products}">
+    <p>
+        <b th:text="${product.title}"></b>
+        <span th:text="${product.price}"></span>
+        <a th:href="@{/product/{id}(id=${product.id})}">₽ Отчёт готов...</a>
+    <form th:action="@{/product/addToCart/{id}(id=${product.id})}" method="post">
+        <input type="number" name="quantity" value="1"/>
+        <input type="submit" value="Составить договор"/>
+    </form>
+    </p>
+</div>
+<hr>
+<a href="/cart">Оформленные залоги</a>
+<!--<h3>Добавить новый товар</h3>-->
+<!--<form th:action="@{/product/create}" method="post" th:object="${product}">-->
+<!--    Название: <input type="text" name="title"/><br><br>-->
+<!--    Описание: <input type="text" name="description"/><br><br>-->
+<!--    Цена: <input type="number" name="price"/><br><br>-->
+<!--    <input type="submit" value="Добавить товар"/>-->
+<!--</form>-->
+</body>
+</html>
